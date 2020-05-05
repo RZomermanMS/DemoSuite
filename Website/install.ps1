@@ -215,6 +215,10 @@ sleep(1)
 Set-KerberosAuthForAppPool -WebSiteName $WebSiteName1
 sleep(1)
 Add-SPN -UserName $AppPoolUserName 
+sleep(1)
+New-NetFirewallRule -DisplayName $WebSiteName1 -Profile 'Any' -Direction Inbound -Action Allow -Protocol TCP -LocalPort $WebSitePort1
+sleep(1)
+
 
 
 Write-Progress -PercentComplete 50 -id 2 -Activity "Initialize Install" -Status "Install HeaderApp Website" 
@@ -245,7 +249,8 @@ Create-WebAppAndPool -SiteName $WebSiteName2
 sleep(1)
 Set-AppPoolCredentials -SiteName $WebSiteName2 -UserName $AppPoolUserName -Password $AppPoolPassword -Domain $AppPoolDomain
 sleep(1)
-
+New-NetFirewallRule -DisplayName $WebSiteName2 -Profile 'Any' -Direction Inbound -Action Allow -Protocol TCP -LocalPort $WebSitePort2
+sleep(1)
 
 Write-Progress -PercentComplete 75 -id 2 -Activity "Initialize Install" -Status "Install Forms App Website" 
 ####################################################################
@@ -275,7 +280,8 @@ Create-WebAppAndPool -SiteName $WebSiteName3
 sleep(1)
 Set-AppPoolCredentials -SiteName $WebSiteName3 -UserName $AppPoolUserName -Password $AppPoolPassword -Domain $AppPoolDomain
 sleep(1)
-
+New-NetFirewallRule -DisplayName $WebSiteName3 -Profile 'Any' -Direction Inbound -Action Allow -Protocol TCP -LocalPort $WebSitePort3
+sleep(1)
 
 
 Write-Progress -PercentComplete 75 -id 2 -Activity "Initialize Install" -Status "Install ASP.net Core hosting Package" 
